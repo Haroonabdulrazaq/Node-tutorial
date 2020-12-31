@@ -1,0 +1,27 @@
+{
+  "name": "node-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "lint": "eslint src/js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haroonabdulrazaq/Node-tutorial.git"
+  },
+  "author": "Haroon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Haroonabdulrazaq/Node-tutorial/issues"
+  },
+  "homepage": "https://github.com/Haroonabdulrazaq/Node-tutorial#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0"
+  }
+}
