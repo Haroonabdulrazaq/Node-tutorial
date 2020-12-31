@@ -6,12 +6,22 @@ const { urlencoded } = require('body-parser');
 
 let app = express()
 
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'jade')
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
-
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req,res)=>{
-  res.send("<h1>Hello world!</h1>")
+  res.render("index", {title:"Welcome to Homepage"})
+})
+
+app.get('/about', (req,res)=>{
+  res.render("about", {title:"Welcome to About page"})
+})
+app.get('/contact', (req,res)=>{
+  res.render("contact", {title:"Contact me here!"})
 })
 
 app.listen(3000)
