@@ -3,6 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// var livereload = require('livereload');
+
+// const server = livereload.createServer()
+// server.watch(__dirname, '/public')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
