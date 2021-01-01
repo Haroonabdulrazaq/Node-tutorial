@@ -7,6 +7,7 @@ var logger = require('morgan');
 
 // const server = livereload.createServer()
 // server.watch(__dirname, '/public')
+//Connecting Database to project also attaching it to Mongoose
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb+srv://Haroonabdulrazaq:haroon123@cluster0.dsr1s.mongodb.net/locallibrary?retryWrites=true&w=majority';
 
