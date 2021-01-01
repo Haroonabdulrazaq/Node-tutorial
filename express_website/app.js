@@ -44,7 +44,7 @@ console.log("Server is running at Port 3000...")
 //   service: "gmail",
 //   auth: {
 //     user: "haroonabdulrazaq@gmail.com",
-//     pass: "08109225818"
+//     pass: ""
 //   }
 // });
 
