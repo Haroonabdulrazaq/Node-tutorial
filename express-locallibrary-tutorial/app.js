@@ -3,13 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// var livereload = require('livereload');
-
-// const server = livereload.createServer()
-// server.watch(__dirname, '/public')
+require('dotenv').config()
 //Connecting Database to project also attaching it to Mongoose
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://Haroonabdulrazaq:haroon123@cluster0.dsr1s.mongodb.net/locallibrary?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGODB_URL
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
 
