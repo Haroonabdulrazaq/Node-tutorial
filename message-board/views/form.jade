@@ -1,1 +1,10 @@
-h2 Create new Message
+extends layout
+block content
+  h2 Create new Message
+  form(method='POST' action='/new')
+      p
+        input(type='text' name='user')
+      p
+        textarea(name='message')
+      p
+        input(type='submit' value='Submit')
