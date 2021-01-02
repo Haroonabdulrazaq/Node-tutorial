@@ -6,7 +6,7 @@ var logger = require('morgan');
 require('dotenv').config()
 //Connecting Database to project also attaching it to Mongoose
 var mongoose = require('mongoose');
-var mongoDB = process.env.MONGODB_URL
+var mongoDB = 'mongodb+srv://Haroonabdulrazaq:haroon123@cluster0.dsr1s.mongodb.net/locallibrary?retryWrites=true&w=majority'
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
 
