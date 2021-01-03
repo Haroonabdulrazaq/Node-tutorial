@@ -11,9 +11,12 @@ exports.genre_list = function(req, res) {
 };
 
 // Display detail page for a specific Genre.
-exports.genre_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: Genre detail: ' + req.params.id);
-};
+// exports.genre_detail = function(req, res) {
+//     res.send('NOT IMPLEMENTED: Genre detail: ' + req.params.id);
+// };
+exports.genre_detail = function(req, res){
+    res.send('NOT IMPLEMENTED: Genre detail: ' + req.params.id)
+  } 
 
 // Display Genre create form on GET.
 exports.genre_create_get = function(req, res) {
