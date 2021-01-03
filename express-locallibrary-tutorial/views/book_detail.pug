@@ -1,0 +1,10 @@
+extends layout
+block content
+
+  h2(class='mx-5 mt-3')=title
+  h1 Title: #{book_details.title}
+  p Author: 
+    a(href=book_details.url)  #{book_details.author.name}
+  div 
+    strong Summary: 
+    |  #{book_details.summary}
