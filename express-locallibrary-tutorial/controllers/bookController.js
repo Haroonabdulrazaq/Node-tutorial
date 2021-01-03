@@ -46,6 +46,7 @@ exports.book_detail = function(req, res, next) {
     async.parallel({
         book_details: function(callback){
             Book.findById(req.params.id)
+            .populate('genre')
             .populate('author')
             .exec(callback)
         },
