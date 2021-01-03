@@ -3,5 +3,16 @@ extends layout
 block content
   h2(class='mx-5 mt-5')= title
   ul
-  each book_instance in bookinstance_list
-  li Book: #{book_instance.book.title}
+  each val in bookinstance_list
+    li 
+      a(href=val.url) #{val.book.title} : #{val.imprint} -
+      if(val.status == 'Available')
+      span.text-success #{val.status}
+      else if(val.status == 'Maintenance')
+      span.text-danger #{val.status}
+      else
+      span.text-warning #{val.status}
+      if(val.status != 'Available')
+      span (Due: #{val.due_back})
+  else
+    li There is no more Book instance
