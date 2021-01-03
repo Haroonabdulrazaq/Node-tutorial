@@ -17,4 +17,29 @@ block content
   
   h3.text-center Copies
   hr
+  each val in book_instance_detail
+    if val.status == 'Available'
+      div
+        p.text-success #{ val.status}
+        p 
+          strong 
+          |  Imprint: #{val.imprint}
+        p 
+          a(href=val.url) #{val._id}
+    else if val.status == 'Maintenance'
+      p.text-danger #{ val.status}
+      strong Imprint:  
+      |  #{val.imprint} 
+    else
+      span.text-warning 
+      |  #{ val.status}
+    if val.status != 'Available'
+      p 
+        strong Due back: 
+        |  #{val.due_back}
+      p  
+      strong Id: 
+      a(href=val.url) #{val._id}
+  else
+    p There are no copies of this book in the library. 
     
