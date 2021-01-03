@@ -5,6 +5,7 @@ var BookInstance = require('../models/bookinstance');
 
 var async = require('async');
 
+// Statistics of all Catalog
 exports.index = function(req, res) {
 
     async.parallel({
@@ -41,7 +42,7 @@ exports.book_list = function(req, res,next) {
 
 // Display detail page for a specific book.
 exports.book_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: Book detail: ' + req.params.id);
+    // res.send('NOT IMPLEMENTED: Book detail: ' + req.params.id);
 };
 
 // Display book create form on GET.
