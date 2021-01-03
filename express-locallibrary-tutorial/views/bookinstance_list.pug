@@ -6,13 +6,14 @@ block content
   each val in bookinstance_list
     li 
       a(href=val.url) #{val.book.title} : #{val.imprint} -
-      if(val.status == 'Available')
-      span.text-success #{val.status}
-      else if(val.status == 'Maintenance')
-      span.text-danger #{val.status}
+      if val.status == 'Available'
+        span.text-success #{val.status}
+      else if val.status == 'Maintenance'
+        span.text-danger #{val.status}
       else
-      span.text-warning #{val.status}
-      if(val.status != 'Available')
-      span (Due: #{val.due_back})
+        span.text-warning #{val.status}
+      if val.status != 'Available' 
+        span (Due: #{val.due_back})
+    hr
   else
-    li There is no more Book instance
+    li There are no book copies in this library.
