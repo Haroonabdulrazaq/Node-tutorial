@@ -1,7 +1,10 @@
 extends layout
 
 block content
-  h2= title
-  ul 
-  each book in genre.books
-    li book
+  div 
+    h1.mt-3.mb-5  Genre: #{genre.name}
+  each book in genre_books
+    h4.mb-3 
+      a(href=book.url) #{book.title}
+    p  #{book.summary}
+    hr
