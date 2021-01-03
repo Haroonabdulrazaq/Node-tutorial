@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h2(class='mx-5 mt-3')=title
+  ul
+  each val in genre_name
+    li
+      a(href = val.url) #{val.name}
+    hr
