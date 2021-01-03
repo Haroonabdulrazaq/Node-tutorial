@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h2(class='mx-5 mt-5')= title
+  ul
+  each book_instance in bookinstance_list
+  li Book: #{book_instance.book.title}
