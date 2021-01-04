@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1= title
+  h2(class='text-center mt-3')=title
   p Welcome to #[em LocalLibrary], very basic Express website developed as a tutorial example on the Mozilla Developer Network.
-  h1 Dynamic content
+  h2(class='mt-5') Dynamic Content
 
   if error
     p Error getting dynamic content.
