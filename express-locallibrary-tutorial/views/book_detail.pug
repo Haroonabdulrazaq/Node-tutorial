@@ -22,10 +22,11 @@ block content
       div
         p.text-success #{ val.status}
         p 
-          strong 
-          |  Imprint: #{val.imprint}
+          strong  Imprint: 
+          |  #{val.imprint}
         p 
-          a(href=val.url) #{val._id}
+          strong  Id: 
+          a(href=val.url) #{val.id}
     else if val.status == 'Maintenance'
       p.text-danger #{ val.status}
       strong Imprint:  
@@ -39,7 +40,7 @@ block content
         |  #{val.due_back}
       p  
       strong Id: 
-      a(href=val.url) #{val._id}
+      a(href=val.url) #{val.id}
   else
     p There are no copies of this book in the library. 
     
