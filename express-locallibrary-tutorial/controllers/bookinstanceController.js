@@ -19,7 +19,12 @@ exports.bookinstance_detail = function(req, res) {
   .populate('book')
   .exec(function(err, results){
     if(err){return next(err)}
-    res.render('bookinstance_detail',{title: "Book Instance Detail", bookinstance_detail:results})
+    if(results == null){
+      var err = new Error('Book Instance not found!')
+      err.status = 404
+      return next(err)
+    }
+    res.render('bookinstance_detail',{title: "Book Instance Detail", bookinstance_detail: results})
   })
 };
 
