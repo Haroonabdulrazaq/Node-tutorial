@@ -22,14 +22,20 @@ exports.author_detail = function(req, res, next){
       .exec(callback)
     },
     author_books: function(callback){
-      Book.find(req.params.id)
+      Book.find({ 'author': req.params.id },'title summary')
       .exec(callback)
     }
-  }, function(err, result){
+  }, function(err, results){
     if(err){
       return next(err)
     }
-  })
+    if(results.author_books ==null){
+      var err = new Error("Author has no Books Or Books no found for Author")
+      err.status= 404
+      return err
+    }
+    res.render('author_detail', {title: "Author Details", author:results.author, author_books: results.author_books})
+  });
 } 
 
 // Display Author create form on GET.

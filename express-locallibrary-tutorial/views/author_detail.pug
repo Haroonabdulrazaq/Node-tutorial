@@ -1,0 +1,17 @@
+extends layout
+
+block content
+
+  h2(class='text-center mt-3')=title
+  h2 Author: 
+    a(href=author.url) #{author.name}
+  p #{author.date_of_birth} - #{author.death}
+  h3 Books
+  div
+    each book in author_books
+      div
+        h3
+          a(href=book.url) #{book.title} 
+        p #{book.summary}
+    else
+      p There is no Book for this Author
