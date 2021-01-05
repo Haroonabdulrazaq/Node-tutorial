@@ -17,3 +17,8 @@ block content
       label(for=death_date) Death Date:
       input#death_date.form-control(type='date',name='date_of_birth',placeholder='mm/dd/yyyy')
     button.btn.btn-primary(type="submit") Submit
+  
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
