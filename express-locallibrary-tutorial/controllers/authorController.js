@@ -40,12 +40,21 @@ exports.author_detail = function(req, res, next){
 
 // Display Author create form on GET.
 exports.author_create_get = function(req , res){
-  res.send('NOT IMPLEMENTED: Author create GET')
+  // res.send('NOT IMPLEMENTED: Author create GET')
+  res.render("author_form", {title:"Create Author"})
 }
 
 // Handle Author create on POST.
 exports.author_create_post = function(req,res){
-  res.send('NOT IMPLEMENTED: Author create POST')
+  // res.send('NOT IMPLEMENTED: Author create POST')
+  // Sanitize and Validate input =>First Element
+  // create anonymous function  =>Second Element
+  // Get the error fom validationResult request
+  // Create a new variable for genre
+  // Check if the validationResult isEmpty() and return
+  // Query Database to see if it already Exist
+  // Else save the new name
+  // Redirect to url
 }
 
 // Display Author delete form on GET.

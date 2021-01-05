@@ -1,0 +1,19 @@
+extends layout
+
+block content
+
+  h2(class='text-center mt-3')=title
+  form(method='POST', action='')
+    div.form-group
+      label(for=first_name) First Name:
+      input#first_name.form-control(type='text',name='first_name',placeholder='First name')
+    div.form-group
+      label(for=last_name) Last Name:
+      input#last_name.form-control(type='text',name='last_name',placeholder='Last name')
+    div.form-group
+      label(for=birth_date) Birth Date:
+      input#birth_date.form-control(type='date',name='birth_date',placeholder='mm/dd/yyyy')
+    div.form-group
+      label(for=death_date) Death Date:
+      input#death_date.form-control(type='date',name='death_date',placeholder='mm/dd/yyyy')
+    button.btn.btn-primary(type="submit") Submit
