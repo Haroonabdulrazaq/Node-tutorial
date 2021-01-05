@@ -48,15 +48,6 @@ exports.genre_create_get = function(req, res) {
 
 // Handle Genre create on POST.
 exports.genre_create_post =  [
-    // res.send('NOT IMPLEMENTED: Genre create POST');
-    // Sanitize and Validate input =>First Element
-    // create anonymous function  =>Second Element
-    // Get the error fom validationResult request
-    // Create a new variable for genre
-    // Check if the validationResult isEmpty() and return
-    // Query Database to see if it already Exist
-    // Else save the new name
-    // Redirect to url
     body('name', 'Genre can not be Empty').trim().isLength({min: 1}).escape(),
     (req, res, next)=>{
         var errors = validationResult(req)
