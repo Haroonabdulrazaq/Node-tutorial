@@ -6,14 +6,14 @@ block content
   form(method='POST', action='')
     div.form-group
       label(for=first_name) First Name:
-      input#first_name.form-control(type='text',name='first_name',placeholder='First name')
+      input#first_name.form-control(type='text',name='first_name' required='true' ,placeholder='First name')
     div.form-group
-      label(for=last_name) Last Name:
-      input#last_name.form-control(type='text',name='last_name',placeholder='Last name')
+      label(for=family_name) Last Name:
+      input#family_name.form-control(type='text', name='family_name' required='true' ,placeholder='Family name (Surname)')
     div.form-group
       label(for=birth_date) Birth Date:
-      input#birth_date.form-control(type='date',name='birth_date',placeholder='mm/dd/yyyy')
+      input#birth_date.form-control(type='date',name='date_of_birth',placeholder='mm/dd/yyyy')
     div.form-group
       label(for=death_date) Death Date:
-      input#death_date.form-control(type='date',name='death_date',placeholder='mm/dd/yyyy')
+      input#death_date.form-control(type='date',name='date_of_birth',placeholder='mm/dd/yyyy')
     button.btn.btn-primary(type="submit") Submit
