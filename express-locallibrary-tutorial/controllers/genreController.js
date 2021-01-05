@@ -43,13 +43,47 @@ exports.genre_detail = function(req, res, next) {
 // Display Genre create form on GET.
 exports.genre_create_get = function(req, res) {
     // res.send('NOT IMPLEMENTED: Genre create GET');
-    res.render('genre form', {title: "Crete Genre"})
+     res.render('genre form', {title: "Create Genre"})
 };
 
 // Handle Genre create on POST.
-exports.genre_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Genre create POST');
-};
+exports.genre_create_post =  [
+    // res.send('NOT IMPLEMENTED: Genre create POST');
+    // Sanitize and Validate input =>First Element
+    // create anonymous function  =>Second Element
+    // Get the error fom validationResult request
+    // Create a new variable for genre
+    // Check if the validationResult isEmpty() and return
+    // Query Database to see if it already Exist
+    // Else save the new name
+    // Redirect to url
+    body('name', 'Genre cannot be Empty',).trim().length({min: 1}).escape(),
+    (req, res, next)=>{
+        var errors = validationResult(req)
+
+        var genre = new Genre({
+            name: req.name.body
+        })
+
+       if(errors.isEmpty()){
+           res.render("genre_form", {title:"Create Genre"});
+           return;
+       }else{
+        Genre.findOne({'name': req.body.name})
+        .exec(function(err, found_genre){
+            if(err){return next(err)}
+            if(found_genre){
+                res.redirect(found_genre.url)
+            }else{
+                genre.save(function(err) {
+                    if(err){return next(err)}
+                    res.redirect(genre.url) 
+                })
+            }
+        });
+       }
+    }
+];
 
 // Display Genre delete form on GET.
 exports.genre_delete_get = function(req, res) {
