@@ -31,16 +31,17 @@ AuthorSchema
 .get(function(){
  var birth =  DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED);
  var death =  DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED);
- var year_of_birth = birth.split(",")[1]
- var year_of_death = death.split(",")[1]
- if(year_of_death ==undefined){
-   year_of_death = 'unknown'
+
+//  console.log(birth)
+
+ if( death =='Invalid DateTime'){
+    death = 'unknown'
  }
- if(year_of_birth ==undefined){
-  year_of_birth = 'unknown'
+ if( birth =='Invalid DateTime'){
+   birth = 'unknown'
 }
 
-  return `${year_of_birth} - ${year_of_death}`
+  return `${birth} - ${death}`
  
 })
 
