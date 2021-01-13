@@ -92,7 +92,7 @@ exports.author_create_post =  [
 ]
 
 // Display Author delete form on GET.
-exports.author_delete_get = function(req,res){
+exports.author_delete_get = function(req,res, next){
   // res.send('NOT IMPLEMENTED: Author delete GET ' + req.params.id)
 
   async.parallel({
@@ -101,8 +101,8 @@ exports.author_delete_get = function(req,res){
       .exec(callback)
     },
 
-    authors_books: function(callback){
-      Book.findById({'author': req.params.id})
+    author_books: function(callback){
+      Book.find({'author': req.params.id})
       .exec(callback)
     }
   }, function(err, results){
@@ -112,20 +112,20 @@ exports.author_delete_get = function(req,res){
       res.redirect('/catalog/authors')
     }
 
-    res.render("author_delete", {title: "Delete Author", author: results.authors, author_books: results.authors_books})
+    res.render("author_delete", {title: "Delete Author", author: results.author, author_books: results.author_books})
 
   })
 }
 
 // Handle Author delete on POST.
-exports.author_delete_post = function(req,res){
+exports.author_delete_post = function(req,res, next){
   // res.send('NOT IMPLEMENTED: Author delete POST')
   async.parallel({
     author: function(callback){
       Author.findById(req.body.authorid)
       .exec(callback)
     },
-    authors_books: function(callback){
+    author_books: function(callback){
       Book.find({'author': req.body.authorid})
       .exec(callback)
     }
@@ -134,7 +134,7 @@ exports.author_delete_post = function(req,res){
     if(err){return next(err)}
 
     if(results.author_books.length > 0){
-      res.render("author_delete",{title: "Delete Author", authors: results.author, authors_books: results.authors_books})
+      res.render("author_delete",{title: "Delete Author", author: results.author, author_books: results.author_books})
       return ;
     }
     else{
