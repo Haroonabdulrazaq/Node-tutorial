@@ -10,8 +10,9 @@ block content
 
     for book_instance in book_instances
       div(class="m-5")
-        a(href=book_instance.url)
-        p #[strong Book Status:] #{book_instance.status}
+       
+        p #[strong Book Status:] 
+          a(href=book_instance.url) #{book_instance.status}
         p #[strong Book Imprint:] #{book_instance.imprint} 
         p #[strong Book Due_Back:] #{book_instance.due_back}
       hr
@@ -22,5 +23,3 @@ block content
       div.form-group
         input#bookid.form-control(type="hidden", name="bookid", required='true' ,value=book._id)
         button.btn.btn-primary(type='submit') Delete
-
-
