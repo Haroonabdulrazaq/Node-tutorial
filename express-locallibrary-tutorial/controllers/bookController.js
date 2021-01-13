@@ -240,9 +240,17 @@ exports.book_update_get = function(req, res, next) {
             return next(err)
         }
 
-        for (var all_g_iter = 0; all_g_iter < results.genres.length; all_g_iter++) {
-            for (var book_g_iter = 0; book_g_iter < results.book.genre.length; book_g_iter++) {
-                if (results.genres[all_g_iter]._id.toString()===results.book.genre[book_g_iter]._id.toString()) {
+        // for (var all_g_iter = 0; all_g_iter < results.genres.length; all_g_iter++) {
+        //     for (var book_g_iter = 0; book_g_iter < results.book.genre.length; book_g_iter++) {
+        //         if (results.genres[all_g_iter]._id.toString()===results.book.genre[book_g_iter]._id.toString()) {
+        //             results.genres[all_g_iter].checked='true';
+        //         }
+        //     }
+        // }
+
+        for(let all_g_iter = 0; all_g_iter < results.genres.length; all_g_iter++){
+            for(let book_g_iter = 0; book_g_iter < results.book.genre.length; book_g_iter++) {
+                if (results.genres[all_g_iter]._id.toString()===results.book.genre[book_g_iter]._id.toString()){
                     results.genres[all_g_iter].checked='true';
                 }
             }
