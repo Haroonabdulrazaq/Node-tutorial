@@ -163,13 +163,13 @@ exports.book_create_post = [
 // Display book delete form on GET.
 exports.book_delete_get = function(req, res, next) {
     // res.send('NOT IMPLEMENTED: Book delete GET');
-    async({
+    async.parallel({
         book: function(callback){
             Book.findById(req.params.id)
             .populate(['author', 'genre'])
             .exec(callback)
         },
-        book_instance: function(callback){
+        book_instances: function(callback){
             BookInstance.find({'book': req.params.id})
             .exec(callback)
         }
@@ -177,12 +177,12 @@ exports.book_delete_get = function(req, res, next) {
     }, function(err, results){
         if(err){return next(err)}
 
-        if(results.book_instance ===null){
+        if(results.book_instances ===null){
              var err = new Error("Not found")
              err.status = 404
              return next(err)
         } 
-        res.render("book_delete", {title: "Book Delete", book: results.book, book_instance: results.book_instance})
+        res.render("book_delete", {title: "Book Delete", book: results.book, book_instances: results.book_instances})
     })
 };
 
@@ -194,16 +194,16 @@ exports.book_delete_post = function(req, res) {
               Book.findById(req.body.bookid)
               .exec(callback)
         },
-        book_instance: function(callback){
+        book_instances: function(callback){
             BookInstance.find({'book': req.body.bookid})
             .exec(callback)
         }
     }, function(err, results){
         if(err){return next(err)}
         
-        if(results.book_instance.length > 0){
+        if(results.book_instances.length > 0){
 
-            res.render("book_delete", {title: "Delete Book", book: results.book, book_instance: results.book_instance})
+            res.render("book_delete", {title: "Delete Book", book: results.book, book_instances: results.book_instances})
             return;
         }else{
             Book.findByIdAndRemove(req.body.bookid, function deleteBook(err){
