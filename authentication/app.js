@@ -31,22 +31,64 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(express.urlencoded({extended: false}))
 
-
 var indexRouter = require('./routes/index');
 
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => {
+  res.render("index", {user: req.user})
+});
+
 app.use('/sign-up', indexRouter)
 
-app.post('/sign-up',(req, res, next)=>{
+app.post("/sign-up", (req, res, next) => {
   const user = new User({
     username: req.body.username,
     password: req.body.password
-  }).save(err =>{
-    if(err){return next(err)}
-    
-    res.redirect('/')
-  })
+  }).save(err => {
+    if (err) { 
+      return next(err);
+    };
+    res.redirect("/");
+  });
+});
 
+app.get('/error', (req, res, next)=>{
+  res.render('error')
 })
+
+// Function One
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username: username }, (err, user) => {
+      if (err) { 
+        return done(err);
+      };
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" });
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: "Incorrect password" });
+      }
+      return done(null, user);
+    });
+  })
+);
+// Function 2 and 3
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+app.post(
+  "/log-in",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/error"
+  })
+);
 
 app.listen(3000, ()=> console.log("App listening on part 3000!!"))

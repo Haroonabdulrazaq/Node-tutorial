@@ -5,6 +5,17 @@
   <title></title>
 </head>
 <body>
-  <h1>hello world!</h1>
+  <% if (user) {%>
+    <h1>WELCOME BACK <%= user.username %></h1><a href="/log-out">LOGOUT</a>
+    <%} else {%>
+    <h1>please log in</h1>
+  <form action="/log-in" method="POST">
+    <label for="username">Username</label>
+    <input name="username" placeholder="username" type="text" />
+    <label for="password">Password</label>
+    <input name="password" type="password" />
+    <button>Log In</button>
+  </form>
+  <% } %>
 </body>
 </html>
