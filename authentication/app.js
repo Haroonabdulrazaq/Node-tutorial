@@ -1,4 +1,3 @@
-
 const express= require('express');
 const path = require('path');
 const session = require('express-session');
@@ -32,6 +31,22 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(express.urlencoded({extended: false}))
 
+
+var indexRouter = require('./routes/index');
+
 app.get("/", (req, res) => res.render("index"));
+app.use('/sign-up', indexRouter)
+
+app.post('/sign-up',(req, res, next)=>{
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password
+  }).save(err =>{
+    if(err){return next(err)}
+    
+    res.redirect('/')
+  })
+
+})
 
 app.listen(3000, ()=> console.log("App listening on part 3000!!"))
