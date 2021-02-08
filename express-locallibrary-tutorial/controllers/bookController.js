@@ -142,7 +142,7 @@ exports.book_create_post = [
 
                 // Mark our selected genres as checked.
                 for (let i = 0; i < results.genres.length; i++) {
-                    if (book.genre.indexOf(results.genres[i]._id) > -1) {
+                    if (book.genres.indexOf(results.genres[i]._id) > -1) {
                         results.genres[i].checked='true';
                     }
                 }
@@ -230,26 +230,17 @@ exports.book_update_get = function(req, res, next) {
         authors: function(callback){
             Author.find(callback)
         },
-
         genres: function(callback){
             Genre.find(callback)
         }
     }, function(err, results){
         if(err){return next(err)}
 
-        if(results.book ===null){
+        if(results.book === null){
             var error = new Error("Book not found");
             error.status = 404
             return next(err)
         }
-
-        // for (var all_g_iter = 0; all_g_iter < results.genres.length; all_g_iter++) {
-        //     for (var book_g_iter = 0; book_g_iter < results.book.genre.length; book_g_iter++) {
-        //         if (results.genres[all_g_iter]._id.toString()===results.book.genre[book_g_iter]._id.toString()) {
-        //             results.genres[all_g_iter].checked='true';
-        //         }
-        //     }
-        // }
 
         for(let all_g_iter = 0; all_g_iter < results.genres.length; all_g_iter++){
             for(let book_g_iter = 0; book_g_iter < results.book.genre.length; book_g_iter++) {
@@ -258,7 +249,8 @@ exports.book_update_get = function(req, res, next) {
                 }
             }
         }
-
+        console.log("Hello")
+        console.log(results.book.genre)
         res.render('book_form', { title: 'Update Book', authors: results.authors, genres: results.genres, book: results.book });
     })
 };
