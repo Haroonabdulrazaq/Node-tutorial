@@ -249,13 +249,11 @@ exports.book_update_get = function(req, res, next) {
                 }
             }
         }
-        console.log("Hello")
-        console.log(results.book.genre)
+
         res.render('book_form', { title: 'Update Book', authors: results.authors, genres: results.genres, book: results.book });
     })
 };
 
-// Handle book update on POST.
 // Handle book update on POST.
 exports.book_update_post = [
 
@@ -323,7 +321,7 @@ exports.book_update_post = [
                 if (err) { return next(err); }
                    // Successful - redirect to book detail page.
                    res.redirect(thebook.url);
-                });
+            });
         }
     }
 ];

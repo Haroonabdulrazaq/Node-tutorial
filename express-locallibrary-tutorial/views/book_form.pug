@@ -34,7 +34,7 @@ block content
       div
         for genre in genres
           div(style='display: inline; padding-right:10px;')
-          if book.genre.toString() === genre.toString()
+          if book
             input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked= true )
             label(for=genre._id) #{genre.name}
           else
