@@ -1,6 +1,7 @@
 var BookInstance = require('../models/bookinstance');
 var Book = require('../models/book');
 const { body,validationResult } = require('express-validator');
+var async = require('async');
 
 // Display list of all BookInstances.
 exports.bookinstance_list = function(req, res, next) {
@@ -31,7 +32,6 @@ exports.bookinstance_detail = function(req, res) {
 
 // Display BookInstance create form on GET.
 exports.bookinstance_create_get = function(req, res) {
-  // res.send('NOT IMPLEMENTED: BookInstance create GET');
   Book.find({}, 'title')
   .exec(function(err, books){
     if(err){return next(err)}
@@ -45,7 +45,7 @@ exports.bookinstance_create_post = [
   body("book", "Book must be specified").trim().isLength({min:1}).escape(),
   body("imprint", "Imprint must be specified").trim().isLength({min:1}).escape(),
   body("status").escape(),
-  body("due_back", "Imvalid date").optional({ checkFalsy: true }).isISO8601().toDate(),
+  body("due_back", "Invalid date").optional({ checkFalsy: true }).isISO8601().toDate(),
 
   (req, res, next)=>{
     const errors = validationResult(req);
@@ -112,11 +112,60 @@ exports.bookinstance_delete_post = function(req, res, next) {
 };
 
 // Display BookInstance update form on GET.
-exports.bookinstance_update_get = function(req, res) {
-  res.send('NOT IMPLEMENTED: BookInstance update GET');
+exports.bookinstance_update_get = function(req, res, next) {
+  async.parallel({  
+    books: function(callback){
+      Book.find({}, 'title')
+      .exec(callback)
+    },
+    book_instance: function(callback){
+      BookInstance.findById(req.params.id)
+      .exec(callback)
+    }
+  }, function(err, results){
+    if(err){return next(err)}
+    res.render("bookinstance_form", {title: "Update Book Instance", book_list: results.books, bookinstance: results.book_instance})
+    return;
+  })
 };
 
 // Handle bookinstance update on POST.
-exports.bookinstance_update_post = function(req, res) {
-  res.send('NOT IMPLEMENTED: BookInstance update POST');
-};
+exports.bookinstance_update_post = [
+  // res.send('NOT IMPLEMENTED: BookInstance update POST');
+  // Validate and satnitize field
+  // extract err validationResult(req);
+  // Create an aninymous function
+  // Create a new Object from sanitized value
+  // Check if error is empty
+  // if true return former Object
+  // else return a newly updated Object
+  body("book", "Book must be specified").trim().isLength({min: 1}).escape(),
+  body("imprint", "Imprint cannot be empty").trim().isLength({min: 1}).escape(),
+  body("status").escape(),
+  body("due_back", "Invalid date").optional({ checkFalsy: true }).isISO8601().toDate(),
+
+  (req,res, next)=>{
+    const errors = validationResult(req);
+    const bookinstance = new BookInstance({
+      _id: req.params.id,
+      books: req.body.books,
+      imprint: req.body.imprint,
+      status: req.body.status,
+      due_back: req.body.due_back
+    })
+    if(!errors.isEmpty()){   //An error occured
+      Book.find({})
+      .exec(function(err, books){
+        if(err){return next(err)}
+        res.render("bookinstance_form", {title: "Create Book Instance", book_list: books , selected_book: bookinstance.book._id , errors: errors.array(), bookinstance: bookinstance });
+      });
+      return
+    }else{
+      BookInstance.findByIdAndUpdate(req.params.id, bookinstance, {}, function(err, theBookInstance){
+        if(err){return next(err)}
+
+        res.redirect(theBookInstance.url)
+      })
+    }
+  }
+]

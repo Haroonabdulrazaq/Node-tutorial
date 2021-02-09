@@ -162,7 +162,6 @@ exports.author_update_get = function(req, res, next) {
 
       res.render("author_form", {title: 'Update Author', author: results.author, author_books: results.author_books })
       return;
- 
  })
 };
 
@@ -203,8 +202,6 @@ exports.author_update_post = [
         return; 
       }else{
           Author.findByIdAndUpdate( req.params.id, author, {}, function(err, theauthor){
-            console.log(req.params.id)
-            console.log(author)
             if(err) { return next(err); }
             res.redirect(theauthor.url)
         })
