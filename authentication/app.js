@@ -5,6 +5,7 @@ const passport =require('passport');
 const LocalStrategy =require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 
 const mongoDb = 'mongodb+srv://Haroonabdulrazaq:haroon123@cluster0.4o3qm.mongodb.net/AuthDB?retryWrites=true&w=majority';
 mongoose.connect(mongoDb, {useUnifiedTopology: true, useNewUrlParser: true});
@@ -33,27 +34,6 @@ app.use(express.urlencoded({extended: false}))
 
 var indexRouter = require('./routes/index');
 
-app.get("/", (req, res) => {
-  res.render("index", {user: req.user})
-});
-
-app.use('/sign-up', indexRouter)
-
-app.post("/sign-up", (req, res, next) => {
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-  }).save(err => {
-    if (err) { 
-      return next(err);
-    };
-    res.redirect("/");
-  });
-});
-
-app.get('/error', (req, res, next)=>{
-  res.render('error')
-})
 
 // Function One
 passport.use(
@@ -65,13 +45,22 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      if (user.password !== password) {
-        return done(null, false, { message: "Incorrect password" });
-      }
-      return done(null, user);
+      bcrypt.compare(password, user.password, (err, res)=>{
+        if(err){return err}
+        if(res){
+          return done(null, user);
+        }else{
+          return done(null, false, { message: "Incorrect password" });
+        }
+      })
     });
   })
 );
+
+app.use(function(req, res, next) {
+  res.locals.currentUser = res.user
+  next();
+})
 // Function 2 and 3
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -90,5 +79,39 @@ app.post(
     failureRedirect: "/error"
   })
 );
+
+
+
+
+app.get("/", (req, res) => {
+  res.render("index", {user: req.user})
+});
+
+app.use('/sign-up', indexRouter)
+
+app.post("/sign-up", (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, (err, hashedPassword)=>{
+    if(err){return err}
+    const user = new User({
+      username: req.body.username,
+      password: hashedPassword
+    }).save(err => {
+      if (err) { 
+        return next(err);
+      };
+      res.redirect("/");
+    });
+  });
+})
+
+app.get('/error', (req, res, next)=>{
+  res.render('error')
+})
+
+app.get("/log-out", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
 
 app.listen(3000, ()=> console.log("App listening on part 3000!!"))
