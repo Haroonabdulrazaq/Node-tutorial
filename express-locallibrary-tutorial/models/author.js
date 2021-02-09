@@ -32,8 +32,6 @@ AuthorSchema
  var birth =  DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED);
  var death =  DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED);
 
-//  console.log(birth)
-
  if( death =='Invalid DateTime'){
     death = 'unknown'
  }

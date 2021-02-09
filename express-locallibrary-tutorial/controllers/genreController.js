@@ -165,7 +165,5 @@ exports.genre_update_post = [
             res.redirect(theGenre.url)
         })
       }
-
-
     }
 ]

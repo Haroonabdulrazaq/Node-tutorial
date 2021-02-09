@@ -131,14 +131,6 @@ exports.bookinstance_update_get = function(req, res, next) {
 
 // Handle bookinstance update on POST.
 exports.bookinstance_update_post = [
-  // res.send('NOT IMPLEMENTED: BookInstance update POST');
-  // Validate and satnitize field
-  // extract err validationResult(req);
-  // Create an aninymous function
-  // Create a new Object from sanitized value
-  // Check if error is empty
-  // if true return former Object
-  // else return a newly updated Object
   body("book", "Book must be specified").trim().isLength({min: 1}).escape(),
   body("imprint", "Imprint cannot be empty").trim().isLength({min: 1}).escape(),
   body("status").escape(),
