@@ -128,11 +128,44 @@ exports.genre_delete_post = function(req, res, next) {
 };
 
 // Display Genre update form on GET.
-exports.genre_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Genre update GET');
+exports.genre_update_get = function(req, res, next) {
+   Genre.findById(req.params.id)
+   .exec(function(err, genres){
+    if(err){return next(err)}
+    res.render("genre_form", {title: "Update Genre", genre: genres})
+   })
 };
 
 // Handle Genre update on POST.
-exports.genre_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Genre update POST');
-};
+exports.genre_update_post = [
+    // Sanitize inputs
+    // Create an anonymous function
+    // Extract errors
+    // Create a new Obj
+    // Check if not errors is Empty
+    // if true return former content
+    // if false update content
+
+    body("name","Name cannot be empty").trim().isLength().escape(),
+
+    (req, res, next)=> {
+      const errors = validationResult(req);
+
+      const genre = new Genre({
+          _id: req.params.id,
+        name: req.body.name
+      })
+
+      if(!errors.isEmpty()){
+        res.render("genre_form", {title: "Update Genre", genre: genre, errors: errors.array()});
+        return;
+      }else{
+        Genre.findByIdAndUpdate(req.params.id, genre, {}, function(err, theGenre){
+            if(err){return next(err)}
+            res.redirect(theGenre.url)
+        })
+      }
+
+
+    }
+]
