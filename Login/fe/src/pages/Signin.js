@@ -43,7 +43,7 @@ const Signin = () => {
         value={password}
         onChange={(e)=> setPassword(e.target.value)}
         />
-        <button onClick={(e)=>handleClick(e)}>Sign Up</button>
+        <button onClick={(e)=>handleClick(e)}>Sign In</button>
       </form>
     </div>
   )
