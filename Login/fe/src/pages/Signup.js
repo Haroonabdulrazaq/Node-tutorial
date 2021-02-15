@@ -1,4 +1,5 @@
-import React,{ useState } from 'react'
+import React,{ useState } from 'react';
+import axios from 'axios';
 
 const Signup = () => {
   let [name, setName] = useState('')
@@ -6,6 +7,19 @@ const Signup = () => {
 
   const handleClick =(e)=>{
     e.preventDefault();
+   
+    axios({
+      method: 'POST',
+      data: {
+        username: name,
+        password
+      },
+      withCredentials: true,
+      url: 'http://localhost:3001/signup'
+    })
+    .then((res)=>{
+      console.log(res)
+    })
     setName("")
     setPassword("")
   }

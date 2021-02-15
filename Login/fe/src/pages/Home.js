@@ -1,8 +1,18 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
+
 
 const Home = () => {
   const getUsers =()=>{
-
+    axios({
+      method: 'GET',
+      withCredentials: true,
+      url: 'http://localhost:3001/users'
+    })
+    .then((res)=>{
+      console.log(res)
+    })
+ 
   }
   return (
     <div>
