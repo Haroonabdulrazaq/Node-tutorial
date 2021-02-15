@@ -57,6 +57,7 @@ passport.use(
   })
 );
 
+//To have acess tocurrent User all through out the app view
 app.use(function(req, res, next) {
   res.locals.currentUser = res.user
   next();
@@ -79,9 +80,6 @@ app.post(
     failureRedirect: "/error"
   })
 );
-
-
-
 
 app.get("/", (req, res) => {
   res.render("index", {user: req.user})

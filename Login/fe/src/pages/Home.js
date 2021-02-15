@@ -12,8 +12,6 @@ const Home = () => {
       url: 'http://localhost:3001/users'
     })
     .then((response)=> {
-      console.log("Hello");
-      console.log(response.data);
       const user = response.data
       setUser(user)
     })
@@ -28,10 +26,10 @@ const Home = () => {
   }
   return (
     <div>
-      <a href="signout" onClick={handleSignout}>Signout</a>
+     { user ?  <a href="signout" onClick={handleSignout}>Signout</a> :  null }
       <h2>All user</h2>
       <button onClick={getUsers}>Get Users</button>
-       { user ? <h1> Welcome back {user.username} </h1> :  null }
+       { user ? <h1> Welcome back {user.username} </h1> :  <p>No one is logIn</p> }
     </div>
   )
 }
