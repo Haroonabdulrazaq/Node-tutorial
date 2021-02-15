@@ -1,0 +1,16 @@
+extends layout
+
+block content
+
+  h2(class='text-center mt-3')=title
+
+  if genre_books.length > 0
+    p #[strong You have to delete all these books to delete this genre]
+    for genre_book in genre_books
+      div
+        p #[strong Title:] 
+          a(href=genre_book.url) #{genre_book.title}
+          p #{genre_book.summary}
+          p #[strong ISBN] 
+            a(href=genre_book.url) #{genre_book.isbn}
+      hr

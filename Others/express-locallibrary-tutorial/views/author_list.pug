@@ -1,0 +1,16 @@
+extends layout
+
+block content
+
+  h2(class='text-center mt-3')=title
+  div
+  ul.mt-5
+    each author in author_list
+      li
+        a(href=author.url) #{author.name} 
+        | ( #{author.lifespan_formatted} )
+  
+
+      hr
+    else
+      li There are no authors.

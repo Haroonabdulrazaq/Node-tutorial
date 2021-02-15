@@ -1,0 +1,53 @@
+extends layout
+block content
+
+  h2(class='mx-5 mt-3')=title
+  h1 Title: #{book_details.title}
+  p Author: 
+    a(href=book_details.author.url)  #{book_details.author.name}
+  div 
+    strong SUMMARY: 
+    |  #{book_details.summary}
+  div.my-3
+    strong ISBN: 
+    |  #{book_details.isbn}
+  div
+    strong GENRE:
+    a(href=book_details.genre.url)  #{book_details.genre.name}
+  
+  h3.text-center Copies
+  hr
+  each val in book_instance_detail
+    if val.status == 'Available'
+      div
+        p.text-success #{ val.status}
+        p 
+          strong  Imprint: 
+          |  #{val.imprint}
+        p 
+          strong  Id: 
+          a(href=val.url) #{val.id}
+    else if val.status == 'Maintenance'
+      p.text-danger #{ val.status}
+      strong Imprint:  
+      |  #{val.imprint} 
+    else
+      span.text-warning 
+      |  #{ val.status}
+    if val.status != 'Available'
+      p 
+        strong Due back: 
+        |  #{val.due_back}
+      p  
+      strong Id: 
+      a(href=val.url) #{val.id}
+  else
+    p There are no copies of this book in the library. 
+
+
+  hr
+  p
+    a(href=book_details.url+'/delete') Delete Book
+  p
+    a(href=book_details.url+'/update') Update Book
+    

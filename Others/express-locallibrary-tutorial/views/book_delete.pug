@@ -1,0 +1,25 @@
+extends layout
+
+block content
+
+  h2(class='text-center m-3') #{title}: 
+    a(href=book.url) #{book.title}
+
+  if book_instances.length > 0
+    p(class='text-center m-3') #[strong Delete the following book instances before attempting to delete this book.]
+
+    for book_instance in book_instances
+      div(class="m-5")
+       
+        p #[strong Book Status:] 
+          a(href=book_instance.url) #{book_instance.status}
+        p #[strong Book Imprint:] #{book_instance.imprint} 
+        p #[strong Book Due_Back:] #{book_instance.due_back}
+      hr
+  else
+    p #[strong Do you really want to delete this Book?]
+
+    form(method='POST' action='')
+      div.form-group
+        input#bookid.form-control(type="hidden", name="bookid", required='true' ,value=book._id)
+        button.btn.btn-primary(type='submit') Delete

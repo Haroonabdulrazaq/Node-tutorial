@@ -1,0 +1,22 @@
+extends layout
+
+block content
+
+  h2(class='text-center mt-3')=title
+  h2 Author: 
+    a(href=author.url) #{author.name}
+  p #{author.lifespan_formatted}
+  h3 Books
+  div(style='margin-left:20px;margin-top:20px')
+    each book in author_books
+      div
+        h3
+          a(href=book.url) #{book.title} 
+        p #{book.summary}
+    else
+      p There is no Book for this Author
+  hr
+  p
+    a(href=author.id+"/delete") Delete Author
+  p
+    a(href=author.id+"/update") Update Author

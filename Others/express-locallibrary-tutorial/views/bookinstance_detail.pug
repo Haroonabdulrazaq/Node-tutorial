@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+  h2(class='text-center mt-3')=title
+  h2 #[strong Title:]
+    a(href=bookinstance_detail.book.url) #{bookinstance_detail.book.title}
+ 
+  p ID: #{bookinstance_detail.id}
+  p #[strong Imprint:] #{bookinstance_detail.imprint}
+
+  if bookinstance_detail.staus == 'Available'
+    span.text-success #{bookinstance_detail.status}
+  else if bookinstance_detail.status == 'Maintenance'
+    span.text-danger #{bookinstance_detail.status}
+  else
+    span.text-warning #{bookinstance_detail.status}
+
+  if bookinstance_detail.status != 'Available'
+    p #[strong Due-back: ] #{bookinstance_detail.due_back_formatted}
+
+ 
+  p 
+    a(href=bookinstance_detail.url+'/delete')  Delete book instance
+  p 
+    a(href=bookinstance_detail.url+'/update')  Update book instance

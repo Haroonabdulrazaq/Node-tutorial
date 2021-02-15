@@ -1,0 +1,24 @@
+extends layout
+
+block content
+
+  h2(class='text-center mt-3')=title
+  form(method='POST', action='')
+    div.form-group
+      label(for=first_name) First Name:
+      input#first_name.form-control(type='text',name='first_name' required='true' ,placeholder='First name' value=(undefined===author? '' : author.first_name))
+    div.form-group
+      label(for=family_name) Last Name:
+      input#family_name.form-control(type='text', name='family_name' required='true' ,placeholder='Family name (Surname)' value=(undefined===author? '' : author.family_name))
+    div.form-group
+      label(for=birth_date) Birth Date:
+      input#birth_date.form-control(type='date',name='date_of_birth',placeholder='mm/dd/yyyy' value=(undefined===author? '' : author.date_of_birth))
+    div.form-group
+      label(for=death_date) Death Date:
+      input#death_date.form-control(type='date',name='date_of_birth',placeholder='mm/dd/yyyy' value=(undefined===author? '' : author.date_of_death))
+    button.btn.btn-primary(type="submit") Submit
+  
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
