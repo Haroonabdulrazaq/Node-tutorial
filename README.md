@@ -3,7 +3,7 @@
 
 ## Screenshot :camera:
   ![screenshot](/ExpressLocalLibrary.png)
-## BUilt with
+## Built with
 - Node and Express
 - MongoDB
 
