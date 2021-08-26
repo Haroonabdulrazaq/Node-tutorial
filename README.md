@@ -39,7 +39,7 @@
 - [ ] Nodemon
 
  ## Deploy 🚀
-This project is deploy to [Heroku](Heroku.com)
+This project is deployed to [Heroku](Heroku.com)
 
 ## Author
 
